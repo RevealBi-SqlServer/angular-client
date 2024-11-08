@@ -1,0 +1,24 @@
+<div class="row-layout group">
+  <div class="row-layout group_1">
+    <p class="text">
+      Select items from the combo box to use as query parameters
+    </p>
+  </div>
+  <div class="row-layout group_2">
+    <p class="text_1">
+      Customer
+    </p>
+		<igx-simple-combo type="border" [data]="customersCustomers" valueKey="CustomerId" displayKey="CustomerId" [(ngModel)]="value" (selectionChanging)="singleSelectComboSelectionChanging($event)" class="single-select-combo"></igx-simple-combo>
+  </div>
+  <div class="row-layout group_3">
+    <p class="text_1">
+      Order
+    </p>
+		<igx-simple-combo type="border" [data]="ordersOrders" valueKey="OrderID" displayKey="OrderID" [(ngModel)]="value1" (selectionChanging)="singleSelectComboSelectionChanging1($event)" class="single-select-combo_1"></igx-simple-combo>
+  </div>
+</div>
+<div class="column-layout group_4">
+  <div #revealView style="height: calc(100vh-50); width: 100%; position:relative;" class="reveal-dash-board">
+
+  </div>
+</div>
