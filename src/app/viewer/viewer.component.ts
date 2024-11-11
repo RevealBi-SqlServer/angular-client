@@ -16,12 +16,18 @@ export class ViewerComponent implements OnInit, OnDestroy {
   public selectedDashboard: string = 'Healthcare';
   public revealServerDashboardNames: DashboardNames[] = [];
   @ViewChild('revealView') el!: ElementRef;
-  
+  public headers: { [key: string]: string } = {};
+
   constructor(
     private revealServerService: RevealServerService,
   ) {  }
 
   ngOnInit() {
+    
+    $.ig.RevealSdkSettings.setAdditionalHeadersProvider((url: any) => {
+      return this.headers;
+    });
+    
     this.revealServerService.getDashboardNamesList().pipe(takeUntil(this.destroy$)).subscribe(
       data => {
         this.revealServerDashboardNames = data;
@@ -45,6 +51,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   private async loadDashboard(dashboardName: string) {
+    // Set your headers here to pass the authorization token to UserContext provider in the server
+    // In this app, I am hard-coding values, in your app, use your own logic to pass the token
+    // to the server
+    this.headers["x-header-one"] = "ALFKI";
+    this.headers["x-header-two"] = "10248";
+
     let dashboard = await $.ig.RVDashboard.loadDashboard(dashboardName);
     var revealView = new $.ig.RevealView(this.el.nativeElement);
     revealView.interactiveFilteringEnabled = true;
